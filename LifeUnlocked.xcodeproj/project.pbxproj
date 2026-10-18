@@ -1,0 +1,577 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		00353FB589982C8C19B3120B /* BadgeViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A598F8971C5F2E53F0B26C7 /* BadgeViews.swift */; };
+		02E439FF9DD793B4486DFC94 /* LifeStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5605FD3848C6259E00A003B8 /* LifeStore.swift */; };
+		0E0F95E63821CA085E311EB5 /* GameEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3686732C918D28AAD09B19A /* GameEngineTests.swift */; };
+		211E52E404DB51F26083DCC1 /* LifeUnlockedUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C2BB453174B83738A1512A /* LifeUnlockedUITests.swift */; };
+		3ACD8F83184929FA196D8F9F /* AppLanguage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77DADB3598B576D44FDB9B5F /* AppLanguage.swift */; };
+		4FDD8092DA02607D3245725B /* GameEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439A57C08F9426B67BB7063D /* GameEngine.swift */; };
+		5C286BB1BF19C60A61460C70 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 613ABF05F4C7B43F0A788998 /* Localizable.strings */; };
+		5F34CB606B10DE4E8CC544CA /* HealthSteps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7958F9E8B9755EDAAB463A9A /* HealthSteps.swift */; };
+		63580E1DB408600202660F8F /* ModuleDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECD798B26A39612118EEB53 /* ModuleDetailView.swift */; };
+		9107EDEFFBE39AB9C82E10A3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 31FE9E863B8C688184EDCB9D /* Assets.xcassets */; };
+		A36F09633987264D46BD9DB6 /* AnnualRecapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E52CB82F82A4FC524F0D30 /* AnnualRecapView.swift */; };
+		AF872FA27AAADCD1FD988138 /* BadgeEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74DAE77101E55F29204A7C69 /* BadgeEngine.swift */; };
+		CD1A23CA09BC30FEB8FC07EE /* LifeUnlockedApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275A83619A2CD921BA871453 /* LifeUnlockedApp.swift */; };
+		D75FFDBC72B2EF31DA607396 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B9D64DE647CAB48AC33B38 /* ContentView.swift */; };
+		EB7EBEBEED53E9FE29D38D08 /* Forms.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7993FECE56B642AE98DEA6A9 /* Forms.swift */; };
+		F07BC5CD06F8597E44F701EC /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91EBA7DE7D72E4AF3D8F15EC /* Models.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		8A8466C151EE01ECCFFAF7A3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 431B923D58F0CD0AEEEB6863 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0741C55808901F8AE6781096;
+			remoteInfo = LifeUnlocked;
+		};
+		94B1EC0E92D2CD75012ACFBB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 431B923D58F0CD0AEEEB6863 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0741C55808901F8AE6781096;
+			remoteInfo = LifeUnlocked;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		02E52CB82F82A4FC524F0D30 /* AnnualRecapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnualRecapView.swift; sourceTree = "<group>"; };
+		05B9D64DE647CAB48AC33B38 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		275A83619A2CD921BA871453 /* LifeUnlockedApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeUnlockedApp.swift; sourceTree = "<group>"; };
+		31FE9E863B8C688184EDCB9D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		3614773E6378F7E4AFD4F47E /* LifeUnlocked.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = LifeUnlocked.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		439A57C08F9426B67BB7063D /* GameEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEngine.swift; sourceTree = "<group>"; };
+		5605FD3848C6259E00A003B8 /* LifeStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeStore.swift; sourceTree = "<group>"; };
+		561B45EB5CA2A14D2EB2B513 /* LifeUnlockedTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = LifeUnlockedTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		5A598F8971C5F2E53F0B26C7 /* BadgeViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeViews.swift; sourceTree = "<group>"; };
+		74DAE77101E55F29204A7C69 /* BadgeEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeEngine.swift; sourceTree = "<group>"; };
+		77DADB3598B576D44FDB9B5F /* AppLanguage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLanguage.swift; sourceTree = "<group>"; };
+		7958F9E8B9755EDAAB463A9A /* HealthSteps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthSteps.swift; sourceTree = "<group>"; };
+		7993FECE56B642AE98DEA6A9 /* Forms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Forms.swift; sourceTree = "<group>"; };
+		82EA78F9352FDC35346B2478 /* LifeUnlocked.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LifeUnlocked.entitlements; sourceTree = "<group>"; };
+		91EBA7DE7D72E4AF3D8F15EC /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		99984FF4587224E21E18B3F0 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		9ECD798B26A39612118EEB53 /* ModuleDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleDetailView.swift; sourceTree = "<group>"; };
+		D8F3D3036CC2763CD06CCC7D /* LifeUnlockedUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = LifeUnlockedUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EDFCB249D7F7C5618F517255 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		F3686732C918D28AAD09B19A /* GameEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEngineTests.swift; sourceTree = "<group>"; };
+		F5C2BB453174B83738A1512A /* LifeUnlockedUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeUnlockedUITests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		0907A13DD9CF3B4AF2DE0DB6 /* LifeUnlockedTests */ = {
+			isa = PBXGroup;
+			children = (
+				F3686732C918D28AAD09B19A /* GameEngineTests.swift */,
+			);
+			path = LifeUnlockedTests;
+			sourceTree = "<group>";
+		};
+		41490D49FA71A70D6DFED7BD = {
+			isa = PBXGroup;
+			children = (
+				D27F5312CE4872A85D472DEC /* LifeUnlocked */,
+				0907A13DD9CF3B4AF2DE0DB6 /* LifeUnlockedTests */,
+				6EB44B8376E0C462C602073B /* LifeUnlockedUITests */,
+				56A648DAEEB17154F0AEAB93 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		56A648DAEEB17154F0AEAB93 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3614773E6378F7E4AFD4F47E /* LifeUnlocked.app */,
+				561B45EB5CA2A14D2EB2B513 /* LifeUnlockedTests.xctest */,
+				D8F3D3036CC2763CD06CCC7D /* LifeUnlockedUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		6EB44B8376E0C462C602073B /* LifeUnlockedUITests */ = {
+			isa = PBXGroup;
+			children = (
+				F5C2BB453174B83738A1512A /* LifeUnlockedUITests.swift */,
+			);
+			path = LifeUnlockedUITests;
+			sourceTree = "<group>";
+		};
+		D27F5312CE4872A85D472DEC /* LifeUnlocked */ = {
+			isa = PBXGroup;
+			children = (
+				02E52CB82F82A4FC524F0D30 /* AnnualRecapView.swift */,
+				77DADB3598B576D44FDB9B5F /* AppLanguage.swift */,
+				31FE9E863B8C688184EDCB9D /* Assets.xcassets */,
+				74DAE77101E55F29204A7C69 /* BadgeEngine.swift */,
+				5A598F8971C5F2E53F0B26C7 /* BadgeViews.swift */,
+				05B9D64DE647CAB48AC33B38 /* ContentView.swift */,
+				7993FECE56B642AE98DEA6A9 /* Forms.swift */,
+				439A57C08F9426B67BB7063D /* GameEngine.swift */,
+				7958F9E8B9755EDAAB463A9A /* HealthSteps.swift */,
+				5605FD3848C6259E00A003B8 /* LifeStore.swift */,
+				82EA78F9352FDC35346B2478 /* LifeUnlocked.entitlements */,
+				275A83619A2CD921BA871453 /* LifeUnlockedApp.swift */,
+				91EBA7DE7D72E4AF3D8F15EC /* Models.swift */,
+				9ECD798B26A39612118EEB53 /* ModuleDetailView.swift */,
+				613ABF05F4C7B43F0A788998 /* Localizable.strings */,
+			);
+			path = LifeUnlocked;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		02749DF299CCBE641EEB3AF6 /* LifeUnlockedTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 417ACC12CF1F7B8AE74265B1 /* Build configuration list for PBXNativeTarget "LifeUnlockedTests" */;
+			buildPhases = (
+				8B9DE763A75D257633039098 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BB71DDDDC01FB3EC00DFFE88 /* PBXTargetDependency */,
+			);
+			name = LifeUnlockedTests;
+			packageProductDependencies = (
+			);
+			productName = LifeUnlockedTests;
+			productReference = 561B45EB5CA2A14D2EB2B513 /* LifeUnlockedTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		0741C55808901F8AE6781096 /* LifeUnlocked */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A08BF1618BD73B83783730A4 /* Build configuration list for PBXNativeTarget "LifeUnlocked" */;
+			buildPhases = (
+				5FFF559DF561496CC98415C7 /* Sources */,
+				B95CC4F9905196A5EFCF6592 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LifeUnlocked;
+			packageProductDependencies = (
+			);
+			productName = LifeUnlocked;
+			productReference = 3614773E6378F7E4AFD4F47E /* LifeUnlocked.app */;
+			productType = "com.apple.product-type.application";
+		};
+		911DE94F5269F4BD5FEAC603 /* LifeUnlockedUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D4485C4C20A95A69044CE0D2 /* Build configuration list for PBXNativeTarget "LifeUnlockedUITests" */;
+			buildPhases = (
+				5C0BE8DED8855C548ED9CE5E /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7F1C77A6E305C1A4ADD77306 /* PBXTargetDependency */,
+			);
+			name = LifeUnlockedUITests;
+			packageProductDependencies = (
+			);
+			productName = LifeUnlockedUITests;
+			productReference = D8F3D3036CC2763CD06CCC7D /* LifeUnlockedUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		431B923D58F0CD0AEEEB6863 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					02749DF299CCBE641EEB3AF6 = {
+						ProvisioningStyle = Automatic;
+					};
+					0741C55808901F8AE6781096 = {
+						ProvisioningStyle = Automatic;
+					};
+					911DE94F5269F4BD5FEAC603 = {
+						ProvisioningStyle = Automatic;
+						TestTargetID = 0741C55808901F8AE6781096;
+					};
+				};
+			};
+			buildConfigurationList = A4B4BF90D51EF9659828BEAD /* Build configuration list for PBXProject "LifeUnlocked" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+				"zh-Hans",
+			);
+			mainGroup = 41490D49FA71A70D6DFED7BD;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 56A648DAEEB17154F0AEAB93 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				0741C55808901F8AE6781096 /* LifeUnlocked */,
+				02749DF299CCBE641EEB3AF6 /* LifeUnlockedTests */,
+				911DE94F5269F4BD5FEAC603 /* LifeUnlockedUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B95CC4F9905196A5EFCF6592 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9107EDEFFBE39AB9C82E10A3 /* Assets.xcassets in Resources */,
+				5C286BB1BF19C60A61460C70 /* Localizable.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		5C0BE8DED8855C548ED9CE5E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				211E52E404DB51F26083DCC1 /* LifeUnlockedUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5FFF559DF561496CC98415C7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A36F09633987264D46BD9DB6 /* AnnualRecapView.swift in Sources */,
+				3ACD8F83184929FA196D8F9F /* AppLanguage.swift in Sources */,
+				AF872FA27AAADCD1FD988138 /* BadgeEngine.swift in Sources */,
+				00353FB589982C8C19B3120B /* BadgeViews.swift in Sources */,
+				D75FFDBC72B2EF31DA607396 /* ContentView.swift in Sources */,
+				EB7EBEBEED53E9FE29D38D08 /* Forms.swift in Sources */,
+				4FDD8092DA02607D3245725B /* GameEngine.swift in Sources */,
+				5F34CB606B10DE4E8CC544CA /* HealthSteps.swift in Sources */,
+				02E439FF9DD793B4486DFC94 /* LifeStore.swift in Sources */,
+				CD1A23CA09BC30FEB8FC07EE /* LifeUnlockedApp.swift in Sources */,
+				F07BC5CD06F8597E44F701EC /* Models.swift in Sources */,
+				63580E1DB408600202660F8F /* ModuleDetailView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8B9DE763A75D257633039098 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0E0F95E63821CA085E311EB5 /* GameEngineTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		7F1C77A6E305C1A4ADD77306 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0741C55808901F8AE6781096 /* LifeUnlocked */;
+			targetProxy = 94B1EC0E92D2CD75012ACFBB /* PBXContainerItemProxy */;
+		};
+		BB71DDDDC01FB3EC00DFFE88 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0741C55808901F8AE6781096 /* LifeUnlocked */;
+			targetProxy = 8A8466C151EE01ECCFFAF7A3 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		613ABF05F4C7B43F0A788998 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EDFCB249D7F7C5618F517255 /* en */,
+				99984FF4587224E21E18B3F0 /* zh-Hans */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		041FCF609C2E23227393D080 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.neon.LifeUnlockedTests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LifeUnlocked.app/LifeUnlocked";
+			};
+			name = Release;
+		};
+		06D84759A9C80BDEFE01EFE3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "升级";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "升级读取你在 Apple 健康中的步数，用于展示步数并计算运动经验。";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		46034C6F8CBDF31269293857 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.neon.LifeUnlockedTests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LifeUnlocked.app/LifeUnlocked";
+			};
+			name = Debug;
+		};
+		6E4964C7006FD2CFA4C07A1F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "升级";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "升级读取你在 Apple 健康中的步数，用于展示步数并计算运动经验。";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		89415A45F546E34BCD2AF92D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.neon.LifeUnlockedUITests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = LifeUnlocked;
+			};
+			name = Debug;
+		};
+		8A6A56AE21DF25614AFA33E8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = LifeUnlocked/LifeUnlocked.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.neon.LifeUnlocked;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		A50944CC049315020C6C87BF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.neon.LifeUnlockedUITests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = LifeUnlocked;
+			};
+			name = Release;
+		};
+		BB9E6FB891E6776B015BCFAB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = LifeUnlocked/LifeUnlocked.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.neon.LifeUnlocked;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		417ACC12CF1F7B8AE74265B1 /* Build configuration list for PBXNativeTarget "LifeUnlockedTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				46034C6F8CBDF31269293857 /* Debug */,
+				041FCF609C2E23227393D080 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		A08BF1618BD73B83783730A4 /* Build configuration list for PBXNativeTarget "LifeUnlocked" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BB9E6FB891E6776B015BCFAB /* Debug */,
+				8A6A56AE21DF25614AFA33E8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		A4B4BF90D51EF9659828BEAD /* Build configuration list for PBXProject "LifeUnlocked" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6E4964C7006FD2CFA4C07A1F /* Debug */,
+				06D84759A9C80BDEFE01EFE3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		D4485C4C20A95A69044CE0D2 /* Build configuration list for PBXNativeTarget "LifeUnlockedUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				89415A45F546E34BCD2AF92D /* Debug */,
+				A50944CC049315020C6C87BF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 431B923D58F0CD0AEEEB6863 /* Project object */;
+}

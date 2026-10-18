@@ -1,0 +1,20 @@
+build/
+build-device/
+DerivedData/
+*.xcarchive/
+.DS_Store
+xcuserdata/
+*.xcuserstate
+
+simulator-*.png
+
+# Research files stay local.
+*调研*
+*竞品*
+*访谈*
+*问卷*
+*市场分析*
+*[Rr]esearch*
+*RESEARCH*
+*[Ss]urvey*
+*SURVEY*
