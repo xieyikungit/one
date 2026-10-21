@@ -24,7 +24,7 @@ final class GameEngineTests: XCTestCase {
         let reread = GameEngine.badges(entries: entries).filter { $0.id.hasPrefix("reread-") }
         XCTAssertEqual(reread.count, 1)
         XCTAssertEqual(reread.first?.source?.date, repeatOne.date)
-        XCTAssertEqual(GameEngine.xpByModule(entries)[.reading], 100)
+        XCTAssertEqual(GameEngine.xpByModule(entries)[.learning], 100)
     }
 
     func testStepAndTravelBadgesKeepTheirSource() {
@@ -49,6 +49,7 @@ final class GameEngineTests: XCTestCase {
         let restored = try JSONDecoder().decode(LifeData.self, from: olderData)
         XCTAssertNil(restored.healthStepDays)
         XCTAssertNil(restored.lastHealthStepSync)
+        XCTAssertNil(restored.chapterTitles)
     }
 
     func testRewardImpactDistinguishesNewAndRepeatedExperiences() {
@@ -81,7 +82,7 @@ final class GameEngineTests: XCTestCase {
     func testRereadingBookDoesNotAddExperience() {
         let first = LifeEntry(kind: .finishedBook, date: .now, title: "活着", author: "余华")
         let again = LifeEntry(kind: .finishedBook, date: .now.addingTimeInterval(1), title: "活着", author: "余华")
-        XCTAssertEqual(GameEngine.xpByModule([first, again])[.reading], 100)
+        XCTAssertEqual(GameEngine.xpByModule([first, again])[.learning], 100)
         XCTAssertTrue(GameEngine.achievements(entries: [first, again], profile: LifeProfile()).contains { $0.id.hasPrefix("reread-") })
     }
 
@@ -93,8 +94,8 @@ final class GameEngineTests: XCTestCase {
     }
 
     func testAddingANewModuleNeverLowersTotalLevel() {
-        let starting: [LifeModule: Int] = [.exercise: 15, .reading: 1, .travel: 1]
-        let expanded: [LifeModule: Int] = [.exercise: 15, .reading: 1, .travel: 2]
+        let starting: [LifeModule: Int] = [.exercise: 15, .learning: 1, .travel: 1]
+        let expanded: [LifeModule: Int] = [.exercise: 15, .learning: 1, .travel: 2]
         XCTAssertGreaterThanOrEqual(GameEngine.totalLevel(expanded), GameEngine.totalLevel(starting))
     }
 
@@ -112,7 +113,7 @@ final class GameEngineTests: XCTestCase {
         let xp = GameEngine.xpByModule([run, ride])
         XCTAssertEqual(xp[.exercise], 88)
         XCTAssertFalse(GameEngine.badges(entries: [ride]).first { $0.id == "run-5k" }!.isUnlocked)
-        XCTAssertEqual(GameEngine.rewardImpact(for: ride, previousEntries: []).detail, "累计骑行 0 → 12.5 公里")
+        XCTAssertEqual(GameEngine.rewardImpact(for: ride, previousEntries: []).detail, "累计骑行 0.0 → 12.5 公里")
     }
 
     func testDriversLicenseAchievementRequiresAgeEighteenAtIssueDate() {
@@ -124,5 +125,44 @@ final class GameEngineTests: XCTestCase {
         XCTAssertFalse(GameEngine.achievements(entries: [], profile: profile).contains { $0.id == "drivers-license" })
         profile.licenseDate = after
         XCTAssertTrue(GameEngine.achievements(entries: [], profile: profile).contains { $0.id == "drivers-license" })
+    }
+
+    func testCrossDomainBadgeUnlocksOnceWithoutBonusXP() {
+        let start = Date(timeIntervalSince1970: 1_700_000_000)
+        let run = LifeEntry(kind: .run, date: start, title: "跑步", distanceKM: 5)
+        let trip = LifeEntry(kind: .trip, date: start.addingTimeInterval(86_400), title: "旅行", country: "中国", city: "苏州", tripMode: .visit)
+        let badges = GameEngine.badges(entries: [run, trip])
+        let combo = badges.first { $0.id == "combo-run-travel" }
+        XCTAssertEqual(combo?.source?.date, trip.date)
+        XCTAssertEqual(combo?.progress, 2)
+        XCTAssertEqual(badges.filter { $0.id == "combo-run-travel" }.count, 1)
+        let xp = GameEngine.xpByModule([run, trip])
+        XCTAssertEqual(xp[.exercise], 50)
+        XCTAssertEqual(xp[.travel], 400)
+    }
+
+    func testChaptersAndTimeEchoUseSavedExperienceDates() {
+        let calendar = Calendar.current
+        let anniversary = calendar.date(from: DateComponents(year: 2020, month: 10, day: 21))!
+        let later = calendar.date(from: DateComponents(year: 2021, month: 3, day: 5))!
+        let today = calendar.date(from: DateComponents(year: 2026, month: 10, day: 21))!
+        let book = LifeEntry(kind: .finishedBook, date: anniversary, title: "活着")
+        let run = LifeEntry(kind: .run, date: later, title: "跑步", distanceKM: 8)
+        XCTAssertEqual(LifeStoryEngine.chapters([run, book]).map(\.year), [2021, 2020])
+        XCTAssertEqual(LifeStoryEngine.timeEcho([book, run], on: today)?.id, book.id)
+        XCTAssertNil(LifeStoryEngine.timeEcho([book, run], on: later))
+    }
+
+    func testPersonalRecordsPickBestRunAndTenthDistinctCity() {
+        let start = Date(timeIntervalSince1970: 1_700_000_000)
+        let runs = [5.0, 12.0, 8.0].enumerated().map { index, distance in
+            LifeEntry(kind: .run, date: start.addingTimeInterval(Double(index) * 86_400), title: "跑步", distanceKM: distance)
+        }
+        let trips = (1...10).map { index in
+            LifeEntry(kind: .trip, date: start.addingTimeInterval(Double(index + 10) * 86_400), title: "旅行", country: "中国", city: "城市\(index)", tripMode: .visit)
+        }
+        let records = LifeStoryEngine.personalRecords(runs + trips)
+        XCTAssertEqual(records.first { $0.id == "longest-run" }?.value, "12.0 公里")
+        XCTAssertEqual(records.first { $0.id == "tenth-city" }?.value, "城市10")
     }
 }

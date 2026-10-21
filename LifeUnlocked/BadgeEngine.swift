@@ -294,6 +294,42 @@ extension GameEngine {
                 repeatRule: "同一本书首次重读解锁一次；重读不增加书籍 XP"
             ))
         }
+        func combination(
+            _ id: String, title: String, symbol: String, module: LifeModule,
+            rule: String, first: LifeEntry?, second: LifeEntry?
+        ) -> LifeBadge {
+            let source: BadgeSource?
+            if let first, let second {
+                source = BadgeSource(
+                    date: max(first.date, second.date),
+                    summary: AppLanguage.format("由「%@」和「%@」共同解锁", first.summary, second.summary),
+                    origin: AppLanguage.localized("跨领域经历")
+                )
+            } else {
+                source = nil
+            }
+            return LifeBadge(
+                id: id, module: module, title: AppLanguage.localized(title), symbol: symbol,
+                rule: AppLanguage.localized(rule),
+                repeatRule: AppLanguage.localized("每种组合只解锁一次，不额外获得经验"),
+                progress: Double((first == nil ? 0 : 1) + (second == nil ? 0 : 1)),
+                target: 2, unit: "项", source: source
+            )
+        }
+        result.append(contentsOf: [
+            combination("combo-run-travel", title: "奔向远方", symbol: "figure.run.circle.fill", module: .travel,
+                        rule: "记录跑步和实际到访的城市", first: ordered.first { $0.kind == .run },
+                        second: ordered.first { $0.kind == .trip && !normalized($0.city).isEmpty }),
+            combination("combo-learn-career", title: "学以致用", symbol: "graduationcap.fill", module: .career,
+                        rule: "取得证书并记录一段职业项目成果", first: ordered.first { $0.kind == .certificate },
+                        second: ordered.first { $0.kind == .careerMilestone && CareerMilestoneChoice(rawValue: $0.stage ?? "")?.category == .results }),
+            combination("combo-family-travel", title: "家与远方", symbol: "house.fill", module: .family,
+                        rule: "记录家庭经历和实际到访的城市", first: ordered.first { $0.kind == .familyMoment },
+                        second: ordered.first { $0.kind == .trip && !normalized($0.city).isEmpty }),
+            combination("combo-create-kindness", title: "创造与善意", symbol: "heart.text.square.fill", module: .love,
+                        rule: "完成一项创作并记录一次善行", first: ordered.first { $0.kind == .creativeWork },
+                        second: ordered.first { $0.kind == .kindness })
+        ])
         return result
     }
 }

@@ -369,6 +369,7 @@ struct LifeData: Codable {
     // Optional fields keep JSON backups created before HealthKit support readable.
     var healthStepDays: [HealthStepDay]? = nil
     var lastHealthStepSync: Date? = nil
+    var chapterTitles: [String: String]? = nil
 }
 
 struct Achievement: Identifiable, Equatable {

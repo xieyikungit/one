@@ -56,6 +56,9 @@ struct ContentView: View {
 
 struct HomeView: View {
     @EnvironmentObject private var store: LifeStore
+    @AppStorage("lifeBackfillSeen") private var lifeBackfillSeen = false
+    @AppStorage("showTimeEcho") private var showTimeEcho = true
+    @State private var showBackfill = false
     @State private var showAllGrowthModules = false
     private var rankedGrowthModules: [LifeModule] {
         LifeModule.allCases.enumerated()
@@ -105,6 +108,51 @@ struct HomeView: View {
                     }
                     .buttonStyle(.plain)
 
+                    NavigationLink {
+                        LifeChaptersView()
+                    } label: {
+                        HStack(spacing: 14) {
+                            Image(systemName: "book.pages.fill")
+                                .font(.title3).foregroundStyle(Palette.accent)
+                                .frame(width: 44, height: 44)
+                                .background(Palette.accent.opacity(0.10), in: RoundedRectangle(cornerRadius: 13))
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text("人生章节").font(.headline).foregroundStyle(.primary)
+                                Text("把经历连成自己的成长故事").font(.caption).foregroundStyle(Palette.secondary)
+                            }
+                            Spacer()
+                            Image(systemName: "chevron.right").font(.caption).foregroundStyle(Palette.secondary)
+                        }
+                        .padding(16)
+                        .background(Palette.card, in: RoundedRectangle(cornerRadius: 18))
+                    }
+                    .buttonStyle(.plain)
+
+                    if store.data.entries.count < 3 {
+                        Button { showBackfill = true } label: {
+                            Label("回填过去的经历", systemImage: "clock.arrow.circlepath")
+                                .font(.subheadline.weight(.semibold))
+                                .frame(maxWidth: .infinity)
+                                .padding(16)
+                                .background(Palette.accent.opacity(0.10), in: RoundedRectangle(cornerRadius: 16))
+                        }
+                        .buttonStyle(.plain)
+                    }
+
+                    if showTimeEcho, let echo = LifeStoryEngine.timeEcho(store.data.entries) {
+                        VStack(alignment: .leading, spacing: 7) {
+                            Label("时光回声", systemImage: "clock.arrow.circlepath")
+                                .font(.caption.weight(.semibold)).foregroundStyle(Palette.accent)
+                            Text(AppLanguage.format("%d 年前的今天", Calendar.current.component(.year, from: Date()) - Calendar.current.component(.year, from: echo.date)))
+                                .font(.headline)
+                            Text(echo.summary).font(.subheadline)
+                            Text(AppDate.yearMonthDay(echo.date)).font(.caption).foregroundStyle(Palette.secondary)
+                        }
+                        .padding(18)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .background(Palette.card, in: RoundedRectangle(cornerRadius: 18))
+                    }
+
                     HStack {
                         Text("成长领域").font(.title3.weight(.semibold))
                         Spacer()
@@ -119,15 +167,23 @@ struct HomeView: View {
                             .accessibilityIdentifier("toggle-growth-modules")
                         }
                     }
-                    LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 12), count: 2), spacing: 12) {
-                        ForEach(visibleGrowthModules) { module in
-                            NavigationLink {
-                                ModuleDetailView(module: module)
-                            } label: {
-                                ModuleCard(module: module)
+                    VStack(spacing: 12) {
+                        ForEach(0..<((visibleGrowthModules.count + 1) / 2), id: \.self) { row in
+                            HStack(spacing: 12) {
+                                ForEach(Array(visibleGrowthModules.dropFirst(row * 2).prefix(2))) { module in
+                                    NavigationLink {
+                                        ModuleDetailView(module: module)
+                                    } label: {
+                                        ModuleCard(module: module)
+                                    }
+                                    .buttonStyle(.plain)
+                                    .accessibilityIdentifier("module-\(module.rawValue)")
+                                    .frame(maxWidth: .infinity)
+                                }
+                                if row * 2 + 1 >= visibleGrowthModules.count {
+                                    Color.clear.frame(maxWidth: .infinity)
+                                }
                             }
-                            .buttonStyle(.plain)
-                            .accessibilityIdentifier("module-\(module.rawValue)")
                         }
                     }
 
@@ -177,6 +233,13 @@ struct HomeView: View {
             .background(Palette.background)
             .navigationTitle("")
             .navigationBarTitleDisplayMode(.inline)
+            .onAppear {
+                if store.data.entries.isEmpty && !lifeBackfillSeen {
+                    lifeBackfillSeen = true
+                    showBackfill = true
+                }
+            }
+            .sheet(isPresented: $showBackfill) { LifeBackfillView() }
         }
     }
 }
@@ -394,9 +457,23 @@ struct AchievementsView: View {
                             .font(.subheadline).foregroundStyle(Palette.secondary)
                     }
                     .padding(.bottom, 4)
+                    BadgeShelf(title: "跨领域成就", badges: store.badges.filter { $0.id.hasPrefix("combo-") })
                     ForEach(LifeModule.allCases) { module in
-                        BadgeShelf(title: AppLanguage.format("%@徽章", module.title), badges: store.badges.filter { $0.module == module })
+                        BadgeShelf(title: AppLanguage.format("%@徽章", module.title), badges: store.badges.filter { $0.module == module && !$0.id.hasPrefix("combo-") })
                     }
+
+                    NavigationLink {
+                        PersonalRecordsView()
+                    } label: {
+                        HStack {
+                            Label("个人纪录册", systemImage: "list.star").font(.headline).foregroundStyle(.primary)
+                            Spacer()
+                            Image(systemName: "chevron.right").font(.caption).foregroundStyle(Palette.secondary)
+                        }
+                        .padding(18)
+                        .background(Palette.card, in: RoundedRectangle(cornerRadius: 18))
+                    }
+                    .buttonStyle(.plain)
 
                     VStack(alignment: .leading, spacing: 12) {
                         Text("去过的地方").font(.title3.weight(.semibold))

@@ -503,6 +503,7 @@ struct GoalFormView: View {
 struct ProfileView: View {
     @EnvironmentObject private var store: LifeStore
     @AppStorage("appLanguage") private var appLanguage = AppLanguage.system.rawValue
+    @AppStorage("showTimeEcho") private var showTimeEcho = true
     @State private var addGoal = false
     @State private var exporting = false
     @State private var importing = false
@@ -585,6 +586,9 @@ struct ProfileView: View {
                             Text(language.title).tag(language.rawValue)
                         }
                     }
+                }
+                Section("回忆") {
+                    Toggle("显示时光回声", isOn: $showTimeEcho)
                 }
                 Section("规则") {
                     NavigationLink("查看经验规则") { RulesView() }

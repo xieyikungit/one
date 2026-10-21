@@ -1,10 +1,28 @@
 import XCTest
 
 final class LifeUnlockedUITests: XCTestCase {
+    private func dismissBackfillIfNeeded(_ app: XCUIApplication) {
+        let chinese = app.navigationBars["回填人生起点"].buttons["完成"]
+        let english = app.navigationBars["Add your life milestones"].buttons["Done"]
+        if chinese.waitForExistence(timeout: 2) { chinese.tap() }
+        else if english.exists { english.tap() }
+    }
+
+    func testFirstLaunchOffersPastExperienceBackfill() {
+        let app = XCUIApplication()
+        app.launchArguments = ["-uiTesting-reset", "-appLanguage", "zh-Hans"]
+        app.launch()
+
+        XCTAssertTrue(app.navigationBars["回填人生起点"].waitForExistence(timeout: 5))
+        app.buttons["一次跑步"].tap()
+        XCTAssertTrue(app.textFields["公里数，例如 8.5"].waitForExistence(timeout: 5))
+    }
+
     func testLockedBadgeExplainsItsRule() {
         let app = XCUIApplication()
         app.launchArguments = ["-uiTesting-reset", "-appLanguage", "zh-Hans"]
         app.launch()
+        dismissBackfillIfNeeded(app)
 
         app.tabBars.buttons["成就"].tap()
         let badgeShelfScreenshot = XCTAttachment(screenshot: app.screenshot())
@@ -26,6 +44,7 @@ final class LifeUnlockedUITests: XCTestCase {
         let app = XCUIApplication()
         app.launchArguments = ["-uiTesting-reset", "-appLanguage", "zh-Hans"]
         app.launch()
+        dismissBackfillIfNeeded(app)
         let homeScreenshot = XCTAttachment(screenshot: app.screenshot())
         homeScreenshot.name = "首页模块"
         homeScreenshot.lifetime = .keepAlways
@@ -49,14 +68,19 @@ final class LifeUnlockedUITests: XCTestCase {
         app.buttons["取消"].tap()
         app.navigationBars.buttons.element(boundBy: 0).tap()
 
-        app.buttons["module-reading"].tap()
-        XCTAssertTrue(app.staticTexts["阅读等级"].waitForExistence(timeout: 5))
-        app.buttons["新增阅读经历"].tap()
+        app.buttons["module-learning"].tap()
+        XCTAssertTrue(app.staticTexts["学习等级"].waitForExistence(timeout: 5))
+        app.buttons["新增学习记录"].tap()
         XCTAssertTrue(app.textFields["书名"].waitForExistence(timeout: 5))
         app.buttons["取消"].tap()
         app.navigationBars.buttons.element(boundBy: 0).tap()
 
-        app.buttons["module-travel"].tap()
+        let travelCard = app.buttons["module-travel"]
+        let homeScroll = app.scrollViews.firstMatch
+        for _ in 0..<3 { homeScroll.swipeDown() }
+        for _ in 0..<6 where !travelCard.isHittable { homeScroll.swipeUp(velocity: .slow) }
+        XCTAssertTrue(travelCard.isHittable)
+        travelCard.tap()
         XCTAssertTrue(app.staticTexts["旅行等级"].waitForExistence(timeout: 5))
         app.buttons["新增旅行经历"].tap()
         XCTAssertTrue(app.textFields["实际到达的城市"].waitForExistence(timeout: 5))
@@ -66,6 +90,7 @@ final class LifeUnlockedUITests: XCTestCase {
         let app = XCUIApplication()
         app.launchArguments = ["-uiTesting-reset", "-appLanguage", "zh-Hans"]
         app.launch()
+        dismissBackfillIfNeeded(app)
 
         app.buttons["module-exercise"].tap()
         app.buttons["新增运动经历"].tap()
@@ -118,6 +143,7 @@ final class LifeUnlockedUITests: XCTestCase {
         let app = XCUIApplication()
         app.launchArguments = ["-uiTesting-reset", "-appLanguage", "zh-Hans"]
         app.launch()
+        dismissBackfillIfNeeded(app)
 
         app.buttons["module-exercise"].tap()
         app.buttons["记录骑行"].tap()
@@ -136,6 +162,7 @@ final class LifeUnlockedUITests: XCTestCase {
         let app = XCUIApplication()
         app.launchArguments = ["-uiTesting-reset", "-appLanguage", "en"]
         app.launch()
+        dismissBackfillIfNeeded(app)
         XCTAssertTrue(app.tabBars.buttons["Home"].waitForExistence(timeout: 5))
         app.buttons["module-exercise"].tap()
         XCTAssertTrue(app.staticTexts["Exercise level"].waitForExistence(timeout: 5))
@@ -148,6 +175,7 @@ final class LifeUnlockedUITests: XCTestCase {
         let app = XCUIApplication()
         app.launchArguments = ["-uiTesting-reset", "-appLanguage", "zh-Hans"]
         app.launch()
+        dismissBackfillIfNeeded(app)
         app.tabBars.buttons["我的"].tap()
         app.buttons["life-profile"].tap()
         XCTAssertTrue(app.navigationBars["人生档案"].waitForExistence(timeout: 5))

@@ -85,6 +85,7 @@ final class LifeStore: ObservableObject {
         #if DEBUG
         if ProcessInfo.processInfo.arguments.contains("-uiTesting-reset") {
             try? FileManager.default.removeItem(at: Self.dataURL)
+            UserDefaults.standard.removeObject(forKey: "lifeBackfillSeen")
         }
         #endif
         if let file = try? Data(contentsOf: Self.dataURL),
@@ -110,6 +111,17 @@ final class LifeStore: ObservableObject {
     var achievements: [Achievement] { GameEngine.achievements(entries: data.entries, profile: data.profile, goals: data.goals) }
     var badges: [LifeBadge] { GameEngine.badges(entries: data.entries, stepDays: data.healthStepDays ?? []) }
     var sortedEntries: [LifeEntry] { data.entries.sorted { $0.date > $1.date } }
+
+    func chapterTitle(for year: Int) -> String? { data.chapterTitles?[String(year)] }
+
+    func setChapterTitle(_ title: String, for year: Int) {
+        let cleaned = title.trimmingCharacters(in: .whitespacesAndNewlines)
+        var titles = data.chapterTitles ?? [:]
+        if cleaned.isEmpty { titles.removeValue(forKey: String(year)) }
+        else { titles[String(year)] = cleaned }
+        data.chapterTitles = titles
+        save()
+    }
 
     func add(_ entry: LifeEntry) {
         let previousEntries = data.entries
