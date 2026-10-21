@@ -87,66 +87,17 @@ struct HomeView: View {
                         MiniStat(value: "\(recentBadges.count)", label: "枚徽章", symbol: "rosette")
                     }
 
-                    NavigationLink {
-                        AnnualRecapView()
-                    } label: {
-                        HStack(spacing: 14) {
-                            Image(systemName: "calendar.badge.clock")
-                                .font(.title3)
-                                .foregroundStyle(Palette.accent)
-                                .frame(width: 44, height: 44)
-                                .background(Palette.accent.opacity(0.10), in: RoundedRectangle(cornerRadius: 13))
-                            VStack(alignment: .leading, spacing: 4) {
-                                Text("人生年鉴").font(.headline).foregroundStyle(.primary)
-                                Text("回看这一年的成长与解锁").font(.caption).foregroundStyle(Palette.secondary)
-                            }
-                            Spacer()
-                            Image(systemName: "chevron.right").font(.caption.weight(.semibold)).foregroundStyle(Palette.secondary)
+                    HStack(spacing: 10) {
+                        NavigationLink { AnnualRecapView() } label: {
+                            HomeShortcut(title: "人生年鉴", symbol: "calendar.badge.clock")
                         }
-                        .padding(16)
-                        .background(Palette.card, in: RoundedRectangle(cornerRadius: 18))
-                    }
-                    .buttonStyle(.plain)
-
-                    NavigationLink {
-                        WeeklyRecapView()
-                    } label: {
-                        HStack(spacing: 14) {
-                            Image(systemName: "calendar")
-                                .font(.title3).foregroundStyle(Palette.accent)
-                                .frame(width: 44, height: 44)
-                                .background(Palette.accent.opacity(0.10), in: RoundedRectangle(cornerRadius: 13))
-                            VStack(alignment: .leading, spacing: 4) {
-                                Text("本周回顾").font(.headline).foregroundStyle(.primary)
-                                Text("看看这一周留下的经历与解锁")
-                                    .font(.caption).foregroundStyle(Palette.secondary)
-                            }
-                            Spacer()
-                            Image(systemName: "chevron.right").font(.caption.weight(.semibold)).foregroundStyle(Palette.secondary)
+                        NavigationLink { WeeklyRecapView() } label: {
+                            HomeShortcut(title: "本周回顾", symbol: "calendar")
                         }
-                        .padding(16)
-                        .background(Palette.card, in: RoundedRectangle(cornerRadius: 18))
-                    }
-                    .buttonStyle(.plain)
-                    .accessibilityIdentifier("weekly-recap")
-
-                    NavigationLink {
-                        LifeChaptersView()
-                    } label: {
-                        HStack(spacing: 14) {
-                            Image(systemName: "book.pages.fill")
-                                .font(.title3).foregroundStyle(Palette.accent)
-                                .frame(width: 44, height: 44)
-                                .background(Palette.accent.opacity(0.10), in: RoundedRectangle(cornerRadius: 13))
-                            VStack(alignment: .leading, spacing: 4) {
-                                Text("人生章节").font(.headline).foregroundStyle(.primary)
-                                Text("把经历连成自己的成长故事").font(.caption).foregroundStyle(Palette.secondary)
-                            }
-                            Spacer()
-                            Image(systemName: "chevron.right").font(.caption).foregroundStyle(Palette.secondary)
+                        .accessibilityIdentifier("weekly-recap")
+                        NavigationLink { LifeChaptersView() } label: {
+                            HomeShortcut(title: "人生章节", symbol: "book.pages.fill")
                         }
-                        .padding(16)
-                        .background(Palette.card, in: RoundedRectangle(cornerRadius: 18))
                     }
                     .buttonStyle(.plain)
 
@@ -263,6 +214,27 @@ struct HomeView: View {
             }
             .sheet(isPresented: $showBackfill) { LifeBackfillView() }
         }
+    }
+}
+
+private struct HomeShortcut: View {
+    let title: LocalizedStringKey
+    let symbol: String
+
+    var body: some View {
+        VStack(spacing: 8) {
+            Image(systemName: symbol)
+                .font(.title3)
+                .foregroundStyle(Palette.accent)
+            Text(title)
+                .font(.caption.weight(.semibold))
+                .foregroundStyle(.primary)
+                .lineLimit(1)
+                .minimumScaleFactor(0.8)
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 16)
+        .background(Palette.card, in: RoundedRectangle(cornerRadius: 18))
     }
 }
 

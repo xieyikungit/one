@@ -63,10 +63,12 @@ struct WeeklyRecapView: View {
                     }
                     .accessibilityLabel("上一周")
                     Spacer()
-                    Text("\(AppDate.yearMonthDay(recap.start)) — \(AppDate.yearMonthDay(Calendar.current.date(byAdding: .day, value: -1, to: recap.end)!))")
-                        .font(.subheadline.weight(.semibold))
-                        .minimumScaleFactor(0.8)
-                        .lineLimit(1)
+                    VStack(spacing: 2) {
+                        Text(AppDate.yearMonthDay(recap.start))
+                        Text(AppDate.yearMonthDay(recap.end.addingTimeInterval(-1)))
+                    }
+                    .font(.subheadline.weight(.semibold))
+                    .lineLimit(1)
                     Spacer()
                     Button {
                         moveWeek(1)
