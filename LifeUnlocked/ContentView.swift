@@ -109,6 +109,28 @@ struct HomeView: View {
                     .buttonStyle(.plain)
 
                     NavigationLink {
+                        WeeklyRecapView()
+                    } label: {
+                        HStack(spacing: 14) {
+                            Image(systemName: "calendar")
+                                .font(.title3).foregroundStyle(Palette.accent)
+                                .frame(width: 44, height: 44)
+                                .background(Palette.accent.opacity(0.10), in: RoundedRectangle(cornerRadius: 13))
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text("本周回顾").font(.headline).foregroundStyle(.primary)
+                                Text("看看这一周留下的经历与解锁")
+                                    .font(.caption).foregroundStyle(Palette.secondary)
+                            }
+                            Spacer()
+                            Image(systemName: "chevron.right").font(.caption.weight(.semibold)).foregroundStyle(Palette.secondary)
+                        }
+                        .padding(16)
+                        .background(Palette.card, in: RoundedRectangle(cornerRadius: 18))
+                    }
+                    .buttonStyle(.plain)
+                    .accessibilityIdentifier("weekly-recap")
+
+                    NavigationLink {
                         LifeChaptersView()
                     } label: {
                         HStack(spacing: 14) {

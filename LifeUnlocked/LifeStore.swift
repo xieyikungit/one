@@ -74,25 +74,57 @@ final class LifeStore: ObservableObject {
     @Published private(set) var data: LifeData
     @Published var recentReward: Reward?
     @Published var errorMessage: String?
+    @Published var pendingImport: BackupImportPreview?
 
-    private static var dataURL: URL {
-        let base = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
-        return base.appendingPathComponent("LifeUnlocked", isDirectory: true)
-            .appendingPathComponent("life-data.json")
+    private struct StepCache: Codable {
+        let days: [HealthStepDay]
+        let lastSync: Date?
     }
+
+    private static var supportURL: URL {
+        FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
+    }
+    // Manual records receive the normal iOS device backup treatment.
+    private static var dataURL: URL { supportURL.appendingPathComponent("life-data.json") }
+    // This directory also holds older local data and pre-import snapshots.
+    private static var privateURL: URL { supportURL.appendingPathComponent("LifeUnlocked", isDirectory: true) }
+    private static var legacyDataURL: URL { privateURL.appendingPathComponent("life-data.json") }
+    private static var stepCacheURL: URL { privateURL.appendingPathComponent("health-steps.json") }
 
     init() {
         #if DEBUG
         if ProcessInfo.processInfo.arguments.contains("-uiTesting-reset") {
             try? FileManager.default.removeItem(at: Self.dataURL)
+            try? FileManager.default.removeItem(at: Self.privateURL)
             UserDefaults.standard.removeObject(forKey: "lifeBackfillSeen")
         }
         #endif
-        if let file = try? Data(contentsOf: Self.dataURL),
+        let hasCurrentFile = FileManager.default.fileExists(atPath: Self.dataURL.path)
+        let sourceURL = hasCurrentFile ? Self.dataURL : Self.legacyDataURL
+        if let file = try? Data(contentsOf: sourceURL),
            let decoded = try? JSONDecoder().decode(LifeData.self, from: file) {
             data = decoded
         } else {
             data = LifeData()
+        }
+        if let file = try? Data(contentsOf: Self.stepCacheURL),
+           let cache = try? JSONDecoder().decode(StepCache.self, from: file) {
+            data.healthStepDays = cache.days
+            data.lastHealthStepSync = cache.lastSync
+        }
+        if FileManager.default.fileExists(atPath: Self.privateURL.path) {
+            do { try markExcludedFromBackup(Self.privateURL) }
+            catch { errorMessage = "无法保护本机健康缓存：\(error.localizedDescription)" }
+        }
+        if !hasCurrentFile && FileManager.default.fileExists(atPath: Self.legacyDataURL.path) {
+            do {
+                if data.healthStepDays != nil || data.lastHealthStepSync != nil {
+                    try persistStepCache(days: data.healthStepDays ?? [], lastSync: data.lastHealthStepSync)
+                }
+                try persistManualData(data)
+            } catch {
+                errorMessage = "旧数据迁移失败，原始文件仍保留：\(error.localizedDescription)"
+            }
         }
     }
 
@@ -175,9 +207,14 @@ final class LifeStore: ObservableObject {
     }
 
     func replaceHealthStepDays(_ days: [HealthStepDay]) {
-        data.healthStepDays = days
-        data.lastHealthStepSync = Date()
-        save()
+        do {
+            let now = Date()
+            try persistStepCache(days: days, lastSync: now)
+            data.healthStepDays = days
+            data.lastHealthStepSync = now
+        } catch {
+            errorMessage = "步数保存失败：\(error.localizedDescription)"
+        }
     }
 
     func addGoal(_ goal: PersonalGoal) {
@@ -191,7 +228,8 @@ final class LifeStore: ObservableObject {
     }
 
     func backup() -> BackupDocument? {
-        do { return BackupDocument(contents: try JSONEncoder().encode(data)) }
+        // Apple Health data stays on this device and can be synced again after restore.
+        do { return BackupDocument(contents: try JSONEncoder().encode(BackupImporter.exportableData(data))) }
         catch { errorMessage = "无法生成备份：\(error.localizedDescription)"; return nil }
     }
 
@@ -199,7 +237,8 @@ final class LifeStore: ObservableObject {
         ExperienceCSVDocument(entries: data.entries)
     }
 
-    func restore(from url: URL) {
+    func prepareImport(from url: URL) {
+        pendingImport = nil
         let accessing = url.startAccessingSecurityScopedResource()
         defer { if accessing { url.stopAccessingSecurityScopedResource() } }
         do {
@@ -208,18 +247,93 @@ final class LifeStore: ObservableObject {
                 errorMessage = "备份版本与当前原型不兼容。"
                 return
             }
-            data = incoming
-            save()
+            guard Set(incoming.entries.map(\.id)).count == incoming.entries.count,
+                  Set(incoming.goals.map(\.id)).count == incoming.goals.count else {
+                errorMessage = "备份中有重复记录标识，无法安全导入。"
+                return
+            }
+            pendingImport = BackupImporter.preview(current: data, incoming: incoming, filename: url.lastPathComponent)
         } catch {
             errorMessage = "导入失败：\(error.localizedDescription)"
         }
     }
 
+    func applyPendingImport(_ mode: BackupImportMode) {
+        guard let preview = pendingImport else { return }
+        do {
+            try savePreImportSnapshot()
+            var result = mode == .merge ? preview.merged : preview.incoming
+            result.healthStepDays = data.healthStepDays
+            result.lastHealthStepSync = data.lastHealthStepSync
+            try persistManualData(result)
+            data = result
+            pendingImport = nil
+        } catch {
+            errorMessage = "导入失败，原有数据未改变：\(error.localizedDescription)"
+        }
+    }
+
+    var preImportSnapshots: [URL] {
+        let directory = Self.privateURL
+        return ((try? FileManager.default.contentsOfDirectory(at: directory, includingPropertiesForKeys: nil)) ?? [])
+            .filter { $0.lastPathComponent.hasPrefix("life-data-before-import-") && $0.pathExtension == "json" }
+            .sorted { $0.lastPathComponent > $1.lastPathComponent }
+    }
+
+    func deleteAllLocalData() {
+        do {
+            if FileManager.default.fileExists(atPath: Self.dataURL.path) {
+                try FileManager.default.removeItem(at: Self.dataURL)
+            }
+            if FileManager.default.fileExists(atPath: Self.privateURL.path) {
+                try FileManager.default.removeItem(at: Self.privateURL)
+            }
+            data = LifeData()
+            pendingImport = nil
+            recentReward = nil
+            UserDefaults.standard.removeObject(forKey: "lifeBackfillSeen")
+            UserDefaults.standard.removeObject(forKey: HealthSteps.accessRequestKey)
+        } catch {
+            errorMessage = "清除失败：\(error.localizedDescription)"
+        }
+    }
+
+    private func savePreImportSnapshot() throws {
+        let directory = Self.privateURL
+        try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+        try markExcludedFromBackup(directory)
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.dateFormat = "yyyyMMdd-HHmmss-SSS"
+        let filename = "life-data-before-import-\(formatter.string(from: Date())).json"
+        let snapshotURL = directory.appendingPathComponent(filename)
+        try JSONEncoder().encode(BackupImporter.exportableData(data)).write(to: snapshotURL, options: .atomic)
+        for old in preImportSnapshots.dropFirst(5) { try? FileManager.default.removeItem(at: old) }
+    }
+
+    private func persistManualData(_ value: LifeData) throws {
+        let url = Self.dataURL
+        try FileManager.default.createDirectory(at: url.deletingLastPathComponent(), withIntermediateDirectories: true)
+        try JSONEncoder().encode(BackupImporter.exportableData(value)).write(to: url, options: .atomic)
+    }
+
+    private func persistStepCache(days: [HealthStepDay], lastSync: Date?) throws {
+        try FileManager.default.createDirectory(at: Self.privateURL, withIntermediateDirectories: true)
+        try markExcludedFromBackup(Self.privateURL)
+        try JSONEncoder().encode(StepCache(days: days, lastSync: lastSync))
+            .write(to: Self.stepCacheURL, options: .atomic)
+    }
+
+    private func markExcludedFromBackup(_ target: URL) throws {
+        var url = target
+        var values = URLResourceValues()
+        values.isExcludedFromBackup = true
+        try url.setResourceValues(values)
+    }
+
     private func save() {
         do {
-            let url = Self.dataURL
-            try FileManager.default.createDirectory(at: url.deletingLastPathComponent(), withIntermediateDirectories: true)
-            try JSONEncoder().encode(data).write(to: url, options: .atomic)
+            try persistManualData(data)
         } catch {
             errorMessage = "保存失败：\(error.localizedDescription)"
         }

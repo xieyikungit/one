@@ -436,7 +436,7 @@ struct ModuleDetailView: View {
             detail = entry.vehicleType?.title ?? AppLanguage.localized("私人交通工具")
         case .financialMilestone:
             title = entry.title
-            if let progress = entry.financeProgress {
+            if entry.financeProgress != nil {
                 let type = entry.financeGoalType?.title ?? AppLanguage.localized("财务目标")
                 detail = type
             } else {
@@ -872,7 +872,10 @@ private struct StepCountCard: View {
         .padding(18)
         .background(Palette.card, in: RoundedRectangle(cornerRadius: 18))
         .task {
-            if hasRequestedAccess { await sync(requestAccess: false) }
+            if hasRequestedAccess,
+               store.data.lastHealthStepSync.map({ Date().timeIntervalSince($0) > 3_600 }) ?? true {
+                await sync(requestAccess: false)
+            }
         }
     }
 
@@ -900,26 +903,22 @@ private struct StepCountCard: View {
             let oldXP = store.xp[.exercise] ?? 0
             let oldBadgeIDs = Set(store.badges.filter(\.isUnlocked).map(\.id))
             let days = try await HealthSteps.readDays(requestAccess: requestAccess)
-            if days.isEmpty && store.totalHealthSteps > 0 {
-                statusMessage = "这次未读取到步数，已保留上次数据。请在健康 App 检查数据与读取权限。"
+            if days.isEmpty {
+                statusMessage = AppLanguage.localized("这次未读取到步数，已保留已有数据。请在健康 App 检查数据与读取权限。")
             } else {
                 store.replaceHealthStepDays(days)
-                if days.isEmpty {
-                    statusMessage = "Apple 健康暂未返回步数。请在健康 App 检查数据与读取权限。"
-                } else {
-                    let stepChange = store.totalHealthSteps - oldSteps
-                    let xpChange = (store.xp[.exercise] ?? 0) - oldXP
-                    statusMessage = stepChange == 0
-                        ? "已同步，步数没有变化。"
-                        : "已同步 \(store.totalHealthSteps.formatted()) 步（\(stepChange >= 0 ? "+" : "")\(stepChange.formatted()) 步，\(xpChange >= 0 ? "+" : "")\(xpChange) XP）。"
-                    let newBadges = store.badges.filter { $0.isUnlocked && !oldBadgeIDs.contains($0.id) }
-                    if !newBadges.isEmpty {
-                        statusMessage = (statusMessage ?? "") + " 新徽章：\(newBadges.map(\.title).joined(separator: "、"))。"
-                    }
+                let stepChange = store.totalHealthSteps - oldSteps
+                let xpChange = (store.xp[.exercise] ?? 0) - oldXP
+                statusMessage = stepChange == 0
+                    ? AppLanguage.localized("已同步，步数没有变化。")
+                    : AppLanguage.format("已同步 %d 步（%+d 步，%+d XP）。", store.totalHealthSteps, stepChange, xpChange)
+                let newBadges = store.badges.filter { $0.isUnlocked && !oldBadgeIDs.contains($0.id) }
+                if !newBadges.isEmpty {
+                    statusMessage = (statusMessage ?? "") + AppLanguage.format(" 新徽章：%@。", newBadges.map(\.title).joined(separator: AppLanguage.isEnglish ? ", " : "、"))
                 }
             }
         } catch {
-            statusMessage = "同步失败：\(error.localizedDescription)"
+            statusMessage = AppLanguage.format("同步失败：%@", error.localizedDescription)
         }
     }
 }

@@ -577,7 +577,9 @@ struct ProfileView: View {
                         exportingCSV = true
                     }
                     Button("导入 JSON 备份") { importing = true }
-                    Text("JSON 备份包含完整数据；CSV 可用于查看和整理经历记录。数据仅保存在本机。导入 JSON 会替换当前记录，请先导出备份。")
+                    NavigationLink("查看导入前快照") { BackupSnapshotListView() }
+                    NavigationLink("隐私与数据控制") { PrivacyView() }
+                    Text("JSON 备份包含手动记录与档案，不包含 Apple 健康步数。导入前可预览并选择合并或替换；请定期导出备份。")
                         .font(.caption).foregroundStyle(.secondary)
                 }
                 Section("语言") {
@@ -608,11 +610,99 @@ struct ProfileView: View {
             }
             .fileImporter(isPresented: $importing, allowedContentTypes: [.json]) { result in
                 switch result {
-                case .success(let url): store.restore(from: url)
+                case .success(let url): store.prepareImport(from: url)
                 case .failure(let error): store.errorMessage = "导入失败：\(error.localizedDescription)"
                 }
             }
+            .sheet(item: $store.pendingImport) { preview in
+                BackupImportPreviewView(preview: preview)
+            }
         }
+    }
+}
+
+private struct BackupSnapshotListView: View {
+    @EnvironmentObject private var store: LifeStore
+
+    var body: some View {
+        List {
+            if store.preImportSnapshots.isEmpty {
+                ContentUnavailableView("还没有本机快照", systemImage: "externaldrive", description: Text("首次导入备份前会自动保存当前数据。"))
+            } else {
+                Section {
+                    ForEach(store.preImportSnapshots, id: \.self) { url in
+                        Button {
+                            store.prepareImport(from: url)
+                        } label: {
+                            Label(url.deletingPathExtension().lastPathComponent.replacingOccurrences(of: "life-data-before-import-", with: ""),
+                                  systemImage: "clock.arrow.circlepath")
+                        }
+                    }
+                } footer: {
+                    Text("点开快照可预览、合并或恢复。最近五份会保留在本机。")
+                }
+            }
+        }
+        .navigationTitle("导入前快照")
+    }
+}
+
+private struct BackupImportPreviewView: View {
+    @EnvironmentObject private var store: LifeStore
+    @State private var confirmReplace = false
+    let preview: BackupImportPreview
+
+    var body: some View {
+        NavigationStack {
+            List {
+                Section("备份文件") {
+                    Text(preview.filename).lineLimit(2)
+                    LabeledContent("经历", value: "\(preview.incoming.entries.count)")
+                    LabeledContent("个人目标", value: "\(preview.incoming.goals.count)")
+                    LabeledContent("人生章节", value: "\(preview.incoming.chapterTitles?.count ?? 0)")
+                }
+                Section("合并预览") {
+                    LabeledContent("新增经历", value: "\(preview.summary.addedEntries)")
+                    LabeledContent("跳过重复经历", value: "\(preview.summary.skippedEntries)")
+                    LabeledContent("新增个人目标", value: "\(preview.summary.addedGoals)")
+                    LabeledContent("合并后经历总数", value: "\(preview.merged.entries.count)")
+                    if preview.summary.conflictingEntries > 0 {
+                        Text(AppLanguage.format("%d 条记录与本机记录标识相同但内容不同；合并时保留本机版本。", preview.summary.conflictingEntries))
+                            .font(.footnote).foregroundStyle(.orange)
+                    }
+                }
+                Section {
+                    Text("合并会优先保留本机档案和章节标题。替换会使用备份中的手动记录；本机 Apple 健康步数在两种方式下都会保留。")
+                        .font(.footnote).foregroundStyle(Palette.secondary)
+                }
+            }
+            .navigationTitle("导入预览")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("取消") { store.pendingImport = nil }
+                }
+            }
+            .safeAreaInset(edge: .bottom) {
+                VStack(spacing: 10) {
+                    Button("合并新增内容") { store.applyPendingImport(.merge) }
+                        .buttonStyle(.borderedProminent)
+                        .frame(maxWidth: .infinity)
+                    Button("用备份替换当前数据", role: .destructive) { confirmReplace = true }
+                        .font(.subheadline)
+                }
+                .frame(maxWidth: .infinity)
+                .padding(16)
+                .background(.regularMaterial)
+            }
+            .confirmationDialog("替换所有本机数据？", isPresented: $confirmReplace, titleVisibility: .visible) {
+                Button("确认替换", role: .destructive) { store.applyPendingImport(.replace) }
+                Button("取消", role: .cancel) { }
+            } message: {
+                Text("当前记录会先保存为本机快照，然后由备份内容替换。")
+            }
+        }
+        .tint(Palette.accent)
     }
 }
 

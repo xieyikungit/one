@@ -18,6 +18,53 @@ final class LifeUnlockedUITests: XCTestCase {
         XCTAssertTrue(app.textFields["公里数，例如 8.5"].waitForExistence(timeout: 5))
     }
 
+    func testWeeklyRecapOpensFromHomeAndExplainsEmptyWeek() {
+        let app = XCUIApplication()
+        app.launchArguments = ["-uiTesting-reset", "-appLanguage", "zh-Hans"]
+        app.launch()
+        dismissBackfillIfNeeded(app)
+
+        app.buttons["weekly-recap"].tap()
+        XCTAssertTrue(app.navigationBars["本周回顾"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.staticTexts["这一周还没有记录"].exists)
+        XCTAssertTrue(app.buttons["上一周"].exists)
+        XCTAssertFalse(app.buttons["下一周"].isEnabled)
+    }
+
+    func testPrivacyControlsDeleteLocalExperiences() {
+        let app = XCUIApplication()
+        app.launchArguments = ["-uiTesting-reset", "-appLanguage", "zh-Hans"]
+        app.launch()
+        dismissBackfillIfNeeded(app)
+
+        app.buttons["module-exercise"].tap()
+        app.buttons["新增运动经历"].tap()
+        app.buttons["记录跑步"].tap()
+        let distance = app.textFields["公里数，例如 8.5"]
+        XCTAssertTrue(distance.waitForExistence(timeout: 5))
+        distance.tap()
+        distance.typeText("5")
+        app.buttons["保存"].tap()
+        XCTAssertTrue(app.staticTexts["经历已收录"].waitForExistence(timeout: 5))
+        app.buttons["继续探索"].tap()
+
+        app.tabBars.buttons["我的"].tap()
+        let privacy = app.buttons["隐私与数据控制"]
+        for _ in 0..<5 where !privacy.isHittable { app.swipeUp() }
+        XCTAssertTrue(privacy.isHittable)
+        privacy.tap()
+        XCTAssertTrue(app.navigationBars["隐私与数据"].waitForExistence(timeout: 5))
+        let delete = app.buttons["清除本机所有数据"]
+        for _ in 0..<4 where !delete.isHittable { app.collectionViews.firstMatch.swipeUp() }
+        XCTAssertTrue(delete.isHittable)
+        delete.tap()
+        let confirmDelete = app.buttons["确认清除"]
+        XCTAssertTrue(confirmDelete.waitForExistence(timeout: 5))
+        confirmDelete.tap()
+        app.tabBars.buttons["经历"].tap()
+        XCTAssertTrue(app.staticTexts["还没有记录"].waitForExistence(timeout: 5))
+    }
+
     func testLockedBadgeExplainsItsRule() {
         let app = XCUIApplication()
         app.launchArguments = ["-uiTesting-reset", "-appLanguage", "zh-Hans"]

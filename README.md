@@ -15,4 +15,4 @@
 
 ## 数据
 
-经历默认保存在本机。可在 App 内导出 JSON 备份或 CSV 表格；读取 Apple 健康数据需要用户授权。
+经历默认保存在本机。可在 App 内导出 JSON 备份或 CSV 表格；读取 Apple 健康数据需要用户授权。详见[隐私政策](PRIVACY.md)与[使用支持](SUPPORT.md)。

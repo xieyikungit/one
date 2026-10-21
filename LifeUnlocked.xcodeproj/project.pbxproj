@@ -10,12 +10,17 @@
 		00353FB589982C8C19B3120B /* BadgeViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A598F8971C5F2E53F0B26C7 /* BadgeViews.swift */; };
 		02E439FF9DD793B4486DFC94 /* LifeStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5605FD3848C6259E00A003B8 /* LifeStore.swift */; };
 		0E0F95E63821CA085E311EB5 /* GameEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3686732C918D28AAD09B19A /* GameEngineTests.swift */; };
+		18931C26B60A46FB39CE599C /* BackupImport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7553720CECE7F9590C606F64 /* BackupImport.swift */; };
 		211E52E404DB51F26083DCC1 /* LifeUnlockedUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C2BB453174B83738A1512A /* LifeUnlockedUITests.swift */; };
+		3103A5077CE71D7CE9DB114B /* PrivacyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64256DF95B3A645D50A9297A /* PrivacyView.swift */; };
+		362C27DDD6CB8B861AD61CD0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 022759DE104EF6D805BAB8E6 /* InfoPlist.strings */; };
 		3ACD8F83184929FA196D8F9F /* AppLanguage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77DADB3598B576D44FDB9B5F /* AppLanguage.swift */; };
 		4FDD8092DA02607D3245725B /* GameEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439A57C08F9426B67BB7063D /* GameEngine.swift */; };
 		5C286BB1BF19C60A61460C70 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 613ABF05F4C7B43F0A788998 /* Localizable.strings */; };
 		5F34CB606B10DE4E8CC544CA /* HealthSteps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7958F9E8B9755EDAAB463A9A /* HealthSteps.swift */; };
 		63580E1DB408600202660F8F /* ModuleDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECD798B26A39612118EEB53 /* ModuleDetailView.swift */; };
+		822A716665664D03927E36CB /* WeeklyRecapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8BE40F55A283F74FE732BA /* WeeklyRecapView.swift */; };
+		8C6519524269B1C7F3EE0F1E /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = BD5B8BCCBA30AB9186DA4EC8 /* PrivacyInfo.xcprivacy */; };
 		9107EDEFFBE39AB9C82E10A3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 31FE9E863B8C688184EDCB9D /* Assets.xcassets */; };
 		A36F09633987264D46BD9DB6 /* AnnualRecapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E52CB82F82A4FC524F0D30 /* AnnualRecapView.swift */; };
 		AF872FA27AAADCD1FD988138 /* BadgeEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74DAE77101E55F29204A7C69 /* BadgeEngine.swift */; };
@@ -54,14 +59,20 @@
 		5605FD3848C6259E00A003B8 /* LifeStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeStore.swift; sourceTree = "<group>"; };
 		561B45EB5CA2A14D2EB2B513 /* LifeUnlockedTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = LifeUnlockedTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A598F8971C5F2E53F0B26C7 /* BadgeViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeViews.swift; sourceTree = "<group>"; };
+		64256DF95B3A645D50A9297A /* PrivacyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyView.swift; sourceTree = "<group>"; };
+		6655A6E200D47E41A3297A78 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		6E8BE40F55A283F74FE732BA /* WeeklyRecapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyRecapView.swift; sourceTree = "<group>"; };
 		74DAE77101E55F29204A7C69 /* BadgeEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeEngine.swift; sourceTree = "<group>"; };
+		7553720CECE7F9590C606F64 /* BackupImport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupImport.swift; sourceTree = "<group>"; };
 		77DADB3598B576D44FDB9B5F /* AppLanguage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLanguage.swift; sourceTree = "<group>"; };
 		7958F9E8B9755EDAAB463A9A /* HealthSteps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthSteps.swift; sourceTree = "<group>"; };
 		7993FECE56B642AE98DEA6A9 /* Forms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Forms.swift; sourceTree = "<group>"; };
 		82EA78F9352FDC35346B2478 /* LifeUnlocked.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LifeUnlocked.entitlements; sourceTree = "<group>"; };
 		91EBA7DE7D72E4AF3D8F15EC /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		993C4307CD74D6758F27C2F7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		99984FF4587224E21E18B3F0 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		9ECD798B26A39612118EEB53 /* ModuleDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleDetailView.swift; sourceTree = "<group>"; };
+		BD5B8BCCBA30AB9186DA4EC8 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		D8F3D3036CC2763CD06CCC7D /* LifeUnlockedUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = LifeUnlockedUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDFCB249D7F7C5618F517255 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F3686732C918D28AAD09B19A /* GameEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEngineTests.swift; sourceTree = "<group>"; };
@@ -111,6 +122,7 @@
 				02E52CB82F82A4FC524F0D30 /* AnnualRecapView.swift */,
 				77DADB3598B576D44FDB9B5F /* AppLanguage.swift */,
 				31FE9E863B8C688184EDCB9D /* Assets.xcassets */,
+				7553720CECE7F9590C606F64 /* BackupImport.swift */,
 				74DAE77101E55F29204A7C69 /* BadgeEngine.swift */,
 				5A598F8971C5F2E53F0B26C7 /* BadgeViews.swift */,
 				05B9D64DE647CAB48AC33B38 /* ContentView.swift */,
@@ -123,6 +135,10 @@
 				275A83619A2CD921BA871453 /* LifeUnlockedApp.swift */,
 				91EBA7DE7D72E4AF3D8F15EC /* Models.swift */,
 				9ECD798B26A39612118EEB53 /* ModuleDetailView.swift */,
+				BD5B8BCCBA30AB9186DA4EC8 /* PrivacyInfo.xcprivacy */,
+				64256DF95B3A645D50A9297A /* PrivacyView.swift */,
+				6E8BE40F55A283F74FE732BA /* WeeklyRecapView.swift */,
+				022759DE104EF6D805BAB8E6 /* InfoPlist.strings */,
 				613ABF05F4C7B43F0A788998 /* Localizable.strings */,
 			);
 			path = LifeUnlocked;
@@ -234,7 +250,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				9107EDEFFBE39AB9C82E10A3 /* Assets.xcassets in Resources */,
+				362C27DDD6CB8B861AD61CD0 /* InfoPlist.strings in Resources */,
 				5C286BB1BF19C60A61460C70 /* Localizable.strings in Resources */,
+				8C6519524269B1C7F3EE0F1E /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -255,6 +273,7 @@
 			files = (
 				A36F09633987264D46BD9DB6 /* AnnualRecapView.swift in Sources */,
 				3ACD8F83184929FA196D8F9F /* AppLanguage.swift in Sources */,
+				18931C26B60A46FB39CE599C /* BackupImport.swift in Sources */,
 				AF872FA27AAADCD1FD988138 /* BadgeEngine.swift in Sources */,
 				00353FB589982C8C19B3120B /* BadgeViews.swift in Sources */,
 				D75FFDBC72B2EF31DA607396 /* ContentView.swift in Sources */,
@@ -266,6 +285,8 @@
 				CD1A23CA09BC30FEB8FC07EE /* LifeUnlockedApp.swift in Sources */,
 				F07BC5CD06F8597E44F701EC /* Models.swift in Sources */,
 				63580E1DB408600202660F8F /* ModuleDetailView.swift in Sources */,
+				3103A5077CE71D7CE9DB114B /* PrivacyView.swift in Sources */,
+				822A716665664D03927E36CB /* WeeklyRecapView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -293,6 +314,15 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		022759DE104EF6D805BAB8E6 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				993C4307CD74D6758F27C2F7 /* en */,
+				6655A6E200D47E41A3297A78 /* zh-Hans */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		613ABF05F4C7B43F0A788998 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -356,6 +386,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -374,6 +405,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 0.1.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -436,6 +468,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -460,6 +493,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 0.1.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
