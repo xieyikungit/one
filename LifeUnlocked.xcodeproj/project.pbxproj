@@ -368,8 +368,8 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = "升级";
-				INFOPLIST_KEY_NSHealthShareUsageDescription = "升级读取你在 Apple 健康中的步数，用于展示步数并计算运动经验。";
+				INFOPLIST_KEY_CFBundleDisplayName = "有迹";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "有迹读取你在 Apple 健康中的步数，用于展示步数并计算运动经验。";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
@@ -454,8 +454,8 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = "升级";
-				INFOPLIST_KEY_NSHealthShareUsageDescription = "升级读取你在 Apple 健康中的步数，用于展示步数并计算运动经验。";
+				INFOPLIST_KEY_CFBundleDisplayName = "有迹";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "有迹读取你在 Apple 健康中的步数，用于展示步数并计算运动经验。";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;

@@ -600,10 +600,10 @@ struct ProfileView: View {
             .background(Palette.background)
             .navigationTitle("我的人生")
             .sheet(isPresented: $addGoal) { GoalFormView() }
-            .fileExporter(isPresented: $exporting, document: backupDocument, contentType: .json, defaultFilename: "升级备份") { result in
+            .fileExporter(isPresented: $exporting, document: backupDocument, contentType: .json, defaultFilename: "有迹备份") { result in
                 if case .failure(let error) = result { store.errorMessage = "导出失败：\(error.localizedDescription)" }
             }
-            .fileExporter(isPresented: $exportingCSV, document: csvDocument, contentType: .commaSeparatedText, defaultFilename: "升级经历") { result in
+            .fileExporter(isPresented: $exportingCSV, document: csvDocument, contentType: .commaSeparatedText, defaultFilename: "有迹经历") { result in
                 if case .failure(let error) = result { store.errorMessage = "导出失败：\(error.localizedDescription)" }
             }
             .fileImporter(isPresented: $importing, allowedContentTypes: [.json]) { result in
